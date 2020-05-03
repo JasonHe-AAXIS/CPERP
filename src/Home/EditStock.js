@@ -10,12 +10,15 @@ import {
 } from 'react-native';
 import ProductDetail from './component/ProductDetail'
 
-export default class AddStock extends Component {
+export default class EditStock extends Component {
     static navigationOptions = {
-        headerTitle: '商品入库',
+        headerTitle: '更新库存',
         alignItems: 'center'
     };
     render() {
-        return <ProductDetail />
+        const { params } = this.props.navigation.state;
+        const { product } = params;
+        console.log(product)
+        return <ProductDetail product={product} />
     }
 }

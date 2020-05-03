@@ -26,9 +26,27 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppContainter from './src';
+import {
+  createReduxContainer,
+  createReactNavigationReduxMiddleware
+} from 'react-navigation-redux-helpers';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider, connect } from 'react-redux';
+import appReducer from './src/reducer';
 // import AppContainter from './src/testNav'
 
 const { width, height } = Dimensions.get('window');
+
+const middleware = createReactNavigationReduxMiddleware(state => state.nav);
+const AppReduxContainer = createReduxContainer(AppContainter);
+
+const mapStateToProps = state => ({
+  state: state.nav,
+});
+
+const AppWithNavigationState = connect(mapStateToProps)(AppReduxContainer);
+
+const store = createStore(appReducer, applyMiddleware(middleware));
 
 export default class App extends Component {
 
@@ -41,16 +59,14 @@ export default class App extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.containers}>
-          {/* <View style={{ height: 50, width, backgroundColor: 'red' }} /> */}
-          {/* <StatusBar barStyle="dark-content" />
-       <Text>Testing</Text> 
-       <Icon name="building-o" size={20} />
-       <Icon name="building-o" size={20} /> */}
-          <AppContainter />
-        </View>
-      </SafeAreaView>
+      <Provider store={store} style={styles.containers}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <View style={styles.containers}>
+            {/* <StatusBar barStyle="light-content" /> */}
+            <AppWithNavigationState />
+          </View>
+        </SafeAreaView>
+      </Provider>
     );
   }
 }

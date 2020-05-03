@@ -7,7 +7,7 @@ export default class WelcomePage extends Component {
     console.log('show welcome page...')
     setTimeout(()=>{
       this.props.navigation.navigate('Main');
-    }, 2000);
+    }, 1000);
   }
 
   render() {

@@ -213,3 +213,52 @@ export const brandList = [
         ]
     }
 ]
+
+export const memoryData = [
+    {
+        name: '1G',
+        id: '1G'
+    },
+    {
+        name: '2G',
+        id: '2G'
+    },
+    {
+        name: '3G',
+        id: '3G'
+    },
+    {
+        name: '4G',
+        id: '4G'
+    },
+    {
+        name: '6G',
+        id: '6G'
+    },
+    {
+        name: '8G',
+        id: '8G'
+    },
+    {
+        name: '16G',
+        id: '16G'
+    }
+]
+export const sizeData = [
+    {
+        name: '16G',
+        id: '16G'
+    },
+    {
+        name: '32G',
+        id: '32G'
+    },
+    {
+        name: '64G',
+        id: '64G'
+    },
+    {
+        name: '128G',
+        id: '128G'
+    }
+]

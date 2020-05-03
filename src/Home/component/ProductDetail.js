@@ -10,48 +10,50 @@ import {
 } from 'react-native';
 import SelfadaptModal from 'react-native-selfadapt-modal';
 
-// const TestData = [
-//     { id: 10086, name: 'Option 1(This is a long, long, long option.)' },
-//     { id: 10087, name: 'Option 2' },
-//     { id: 10088, name: 'Option 3' },
-//     { id: 10089, name: 'Option 4' }
-// ];
 import { brandList } from '../../mock/brandData'
 import { TextInput } from 'react-native-gesture-handler';
 export default class ProductDetail extends Component {
     constructor(props) {
         super(props)
+        const { product } = this.props
+        console.log('---------------:' + product)
         this.state = {
-            brandOptions: brandList,
-            versionOptions: [],
-            colorOptions: [],
-            brand: {},
-            version: {},
-            color: {},
-            memory: '',
-            size: ''
+            brandOptions: brandList.map((ele) => ele.name),
+            versionOptions: product ? this.getVersionOptions(product.brand) : [],
+            colorOptions: product ? this.getColorOptions(product.brand, product.model) : [],
+            sn: product ? product.sn : '',
+            brand: product ? product.brand : '',
+            version: product ? product.model : '',
+            color: product ? product.color : '',
+            memory: product ? product.memory : '',
+            size: product ? product.size : ''
         }
+    }
+    getVersionOptions = (brand) => {
+        return brandList.find((ele) => ele.name === brand).version.map((ele) => ele.name)
+    }
+    getColorOptions = (brand, version) => {
+        return brandList.find((ele) => ele.name === brand).version.find((ele) => ele.name === version).colors.map((ele) => ele.name)
     }
     doSelectBrand = (res, defaultOption) => {
         console.log(res)
-        console.log(this.state.brandOptions.find((ele, index) => ele.id === res.id).version)
-        this.setState({
-            versionOptions: this.state.brandOptions.find((ele, index) => ele.id === res.id).version,
+        this.state.brand !== res && this.setState({
+            versionOptions: this.getVersionOptions(res),
             brand: res,
-            version: {},
-            color: {}
+            version: '',
+            color: ''
         })
     }
     doSelectVersion = (res) => {
-        console.log(`select version is: ${res.name}`)
-        this.setState({
-            colorOptions: this.state.versionOptions.find((ele, index) => ele.id === res.id).colors,
+        console.log(`select version is: ${res}`)
+        this.state.version !== res && this.setState({
+            colorOptions: this.getColorOptions(this.state.brand, res),
             version: res,
-            color: {}
+            color: ''
         })
     }
     doSelectColor = (res) => {
-        console.log(`select color is: ${res.name}`)
+        console.log(`select color is: ${res}`)
         this.setState({
             color: res
         })
@@ -76,7 +78,7 @@ export default class ProductDetail extends Component {
                     <TextInput
                         editable={true}
                         style={{ height: 40, borderColor: 'gray', borderWidth: 1, fontWeight: 'bold', fontSize: 18, margin: 10 }}
-                        value={this.state.brand.name}
+                        value={this.state.sn}
                     />
                 </View>
                 <View>
@@ -90,7 +92,7 @@ export default class ProductDetail extends Component {
                         <TextInput
                             editable={false}
                             style={styles.optionText}
-                            value={this.state.brand.name}
+                            value={this.state.brand}
                         />
                     </SelfadaptModal>
                 </View>
@@ -106,7 +108,7 @@ export default class ProductDetail extends Component {
                         <TextInput
                             editable={false}
                             style={styles.optionText}
-                            value={this.state.version.name}
+                            value={this.state.version}
                         />
                     </SelfadaptModal>
 
@@ -123,7 +125,7 @@ export default class ProductDetail extends Component {
                         <TextInput
                             editable={false}
                             style={styles.optionText}
-                            value={this.state.color.name}
+                            value={this.state.color}
                         />
                     </SelfadaptModal>
 
@@ -173,6 +175,7 @@ export default class ProductDetail extends Component {
                         <Text>下一个</Text>
                     </TouchableHighlight>
                 </View>
+                <Text>{JSON.stringify(this.state)}</Text>
             </View>
         )
     }

@@ -8,14 +8,16 @@ import {
     ActivityIndicator,
     Alert
 } from 'react-native';
-import ProductDetail from './component/ProductDetail'
 
-export default class AddStock extends Component {
+import Login from './component/Login'
+
+export default class MyScreen extends Component {
     static navigationOptions = {
-        headerTitle: '商品入库',
+        headerTitle: '我 的',
         alignItems: 'center'
     };
+
     render() {
-        return <ProductDetail />
+        return <Login />
     }
 }

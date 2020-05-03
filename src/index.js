@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeStackNavigator from './Home';
 import WelcomePage from './Welcome/index';
+import MyStackNavigator from './My'
 
 import {
     SafeAreaView,
@@ -45,7 +46,7 @@ const TabNavigator = createBottomTabNavigator(
         },
       },
       My: {
-        screen: WelcomePage,
+        screen: MyStackNavigator,
         navigationOptions: {
           tabBarLabel: '我的',
         },

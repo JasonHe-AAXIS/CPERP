@@ -38,9 +38,9 @@ export default class HomeScreen extends Component {
     }, 2000);
   }
 
-  handlePress = event => {
-    console.log('go to product detail')
-    this.props.navigation.navigate('AddStock');
+  handlePress = pathName => event => {
+    console.log('go to ' + pathName)
+    this.props.navigation.navigate(pathName);
   }
 
   render() {
@@ -69,7 +69,7 @@ export default class HomeScreen extends Component {
             <TouchableHighlight
               style={styles.optionsItem}
               underlayColor='#e0e0e0'
-              onPress={this.handlePress}>
+              onPress={this.handlePress('AddStock')}>
               <View>
                 <Text>入   库</Text>
               </View>
@@ -79,9 +79,14 @@ export default class HomeScreen extends Component {
             </View>
           </View>
           <View style={styles.optionsRow}>
-            <View style={styles.optionsItem}>
+          <TouchableHighlight
+              style={styles.optionsItem}
+              underlayColor='#e0e0e0'
+              onPress={this.handlePress('InventoryManager')}>
+            <View>
               <Text>库存管理</Text>
             </View>
+            </TouchableHighlight>
             <View style={styles.optionsItem}>
               <Text>出入库记录</Text>
             </View>
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', flexDirection: 'row', height: '25%'
   },
   optionsItem: {
-    borderWidth: 1, width: '40%', justifyContent: 'center', flexDirection: 'row', alignItems: 'center', margin: 5
+    borderWidth: 1, width: '40%', justifyContent: 'center', flexDirection: 'row', alignItems: 'center', margin: 5, borderRadius: 10
   },
   hr: {
     marginTop: 10,

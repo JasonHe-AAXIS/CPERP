@@ -1,6 +1,9 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './HomeScreen';
 import AddStock from './AddStock'
+import EditStock from './EditStock'
+import InventoryManager from './InventoryManager'
+
 const HomeStackNavigator = createStackNavigator(
   {
     Home: {
@@ -8,6 +11,12 @@ const HomeStackNavigator = createStackNavigator(
     },
     AddStock: {
       screen: AddStock
+    },
+    EditStock: {
+      screen: EditStock
+    },
+    InventoryManager: {
+      screen: InventoryManager
     }
   },
   {
